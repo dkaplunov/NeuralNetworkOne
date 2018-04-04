@@ -1,0 +1,4 @@
+rootProject.name = 'ru.kda.nn'
+rootProject.name = 'NeuralNetworkOne_c'
+include 'ru.kda.nn'
+
