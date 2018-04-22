@@ -1,3 +1,5 @@
 rootProject.name = 'NeuralNetworkOne_c'
-include 'ru.kda.nn'
+include 'client'
+include 'NN_Model'
+include 'web'
 
