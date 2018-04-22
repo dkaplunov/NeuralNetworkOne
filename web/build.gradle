@@ -27,6 +27,9 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile project(':NN_Model')
+
+    testCompile group: 'org.jetbrains.kotlin', name: 'kotlin-test-junit', version: '1.2.40'
 }
 
 compileKotlin {
