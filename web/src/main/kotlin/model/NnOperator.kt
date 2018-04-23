@@ -7,6 +7,7 @@ import ru.kda.nn.functions.error.RootMSEParam
 import ru.kda.nn.teacher.Teacher
 import ru.kda.nn.teacher.TranerSet
 import ru.kda.nn.teacher.methods.gradient.GradientDescent
+import kotlin.math.roundToLong
 
 class NnOperator (params: NnParams) {
 
@@ -52,6 +53,7 @@ class NnOperator (params: NnParams) {
             values.add((value%2).toDouble())
             value = value/2
         }
+        if (values.size == 0) values.add(0.0)
         return values.toDoubleArray().reversedArray();
     }
 
@@ -60,7 +62,7 @@ class NnOperator (params: NnParams) {
         arr.forEach {
             result = result*2+it
         }
-        return NnValues(result.toInt())
+        return NnValues(result.roundToLong().toInt())
     }
 
     fun getError(resultValue: NnValues, rightValue: NnValues):Double =

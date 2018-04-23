@@ -19,7 +19,8 @@ class TestModel {
 
     @test fun executeNNTest () {
        doStuding();
-       assert(nnOperator.getError(nnOperator.execute(NnValues(0)), NnValues(0))<ERR_CNTRL)
+        assert(nnOperator.getError(nnOperator.execute(NnValues(0)), NnValues(0))<ERR_CNTRL)
+        assert(nnOperator.getError(nnOperator.execute(NnValues(2)), NnValues(1))<ERR_CNTRL)
     }
 
     fun doStuding () {
