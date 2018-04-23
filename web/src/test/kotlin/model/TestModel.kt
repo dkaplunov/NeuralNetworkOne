@@ -5,6 +5,7 @@ import org.junit.Before
 class TestModel {
 
     var nnOperator:NnOperator = NnOperator(NnParams(intArrayOf(2,4,1),"_", "_", 100000, "_"))
+    val ERR_CNTRL = 0.02
 
     @Before fun init () {
 
@@ -17,8 +18,8 @@ class TestModel {
     }
 
     @test fun executeNNTest () {
-        doStuding();
-        nnOperator.execute(NnValues(0))
+       doStuding();
+       assert(nnOperator.getError(nnOperator.execute(NnValues(0)), NnValues(0))<ERR_CNTRL)
     }
 
     fun doStuding () {

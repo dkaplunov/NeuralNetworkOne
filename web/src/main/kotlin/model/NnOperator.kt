@@ -3,6 +3,7 @@ package model
 import ru.kda.nn.base.perceptron.PerceptronNetwork
 import ru.kda.nn.functions.activate.Sigmoid
 import ru.kda.nn.functions.error.RootMSE
+import ru.kda.nn.functions.error.RootMSEParam
 import ru.kda.nn.teacher.Teacher
 import ru.kda.nn.teacher.TranerSet
 import ru.kda.nn.teacher.methods.gradient.GradientDescent
@@ -16,6 +17,11 @@ class NnOperator (params: NnParams) {
                     else -> Sigmoid()
             })
 
+    val errorFun = when (params.errFun) {
+        "RMSE" -> RootMSE()
+        else -> RootMSE()
+    }
+
     val teacher = Teacher (
             nn,
             when (params.teacher) {
@@ -23,16 +29,14 @@ class NnOperator (params: NnParams) {
                 else -> GradientDescent()
             },
             params.numEpoche,
-            when (params.errFun) {
-                "RMSE" -> RootMSE()
-                else -> RootMSE()
-            })
+            errorFun
+    )
 
     fun teachNN (eduValues: List <EduValue>) {
         eduValues.forEach {
             teacher.addTranerSet(TranerSet(toDoubleArray(it.binInitValue), toDoubleArray(it.binAnsverValue)))
         }
-
+        teacher.teach()
     }
 
     fun execute (params:NnValues):NnValues {
@@ -58,6 +62,9 @@ class NnOperator (params: NnParams) {
         }
         return NnValues(result.toInt())
     }
+
+    fun getError(resultValue: NnValues, rightValue: NnValues):Double =
+        errorFun.execute(RootMSEParam (toDoubleArray(resultValue), toDoubleArray(rightValue))) //TODO не правильно, сделать фабрику по извлечению пераметров для фукнции ошибок
 }
 
 data class NnParams (val levels:IntArray, val activFunName:String, val teacher:String, val numEpoche:Int, val errFun:String);
