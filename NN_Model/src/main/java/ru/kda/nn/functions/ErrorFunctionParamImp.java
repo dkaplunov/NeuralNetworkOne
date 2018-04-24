@@ -1,12 +1,10 @@
-package ru.kda.nn.functions.error;
+package ru.kda.nn.functions;
 
-import ru.kda.nn.functions.ErrorFunctionParam;
-
-public class RootMSEParam implements ErrorFunctionParam {
+public class ErrorFunctionParamImp implements ErrorFunctionParam {
     private double results [];
     private double reference [];
 
-    public RootMSEParam(double[] results, double[] reference) {
+    public ErrorFunctionParamImp(double[] results, double[] reference) {
         setParams(results, reference);
     }
 

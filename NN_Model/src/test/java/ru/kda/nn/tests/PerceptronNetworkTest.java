@@ -6,7 +6,7 @@ import org.junit.Test;
 import ru.kda.nn.functions.activate.Sigmoid;
 import ru.kda.nn.base.perceptron.PerceptronNetwork;
 import ru.kda.nn.functions.error.RootMSE;
-import ru.kda.nn.functions.error.RootMSEParam;
+import ru.kda.nn.functions.ErrorFunctionParamImp;
 import ru.kda.nn.teacher.Teacher;
 import ru.kda.nn.teacher.TranerSet;
 import ru.kda.nn.teacher.methods.gradient.GradientDescent;
@@ -69,7 +69,7 @@ public class PerceptronNetworkTest {
     private double executeNN () {
         double [] res = nn.executeNetwork(initialData);
 
-        double err = new RootMSE().execute(new RootMSEParam(res, refernceData));
+        double err = new RootMSE().execute(new ErrorFunctionParamImp(res, refernceData));
         log.info(Arrays.toString(res)+", Error: "+err);
 
         return err;

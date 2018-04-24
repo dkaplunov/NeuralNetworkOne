@@ -1,9 +1,9 @@
 package model
 
 import ru.kda.nn.base.perceptron.PerceptronNetwork
+import ru.kda.nn.functions.ErrorFunctionParam
 import ru.kda.nn.functions.activate.Sigmoid
 import ru.kda.nn.functions.error.RootMSE
-import ru.kda.nn.functions.error.RootMSEParam
 import ru.kda.nn.teacher.Teacher
 import ru.kda.nn.teacher.TranerSet
 import ru.kda.nn.teacher.methods.gradient.GradientDescent
@@ -32,6 +32,7 @@ class NnOperator (params: NnParams) {
             params.numEpoche,
             errorFun
     )
+
 
     fun teachNN (eduValues: List <EduValue>) {
         eduValues.forEach {
@@ -65,8 +66,10 @@ class NnOperator (params: NnParams) {
         return NnValues(result.roundToLong().toInt())
     }
 
-    fun getError(resultValue: NnValues, rightValue: NnValues):Double =
-        errorFun.execute(RootMSEParam (toDoubleArray(resultValue), toDoubleArray(rightValue))) //TODO не правильно, сделать фабрику по извлечению пераметров для фукнции ошибок
+    fun getError(errorFunctionParam:ErrorFunctionParam):Double {
+        return errorFun.execute(errorFunctionParam)
+    }
+
 }
 
 data class NnParams (val levels:IntArray, val activFunName:String, val teacher:String, val numEpoche:Int, val errFun:String);

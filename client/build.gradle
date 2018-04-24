@@ -2,10 +2,11 @@ buildscript {
     ext.kotlin_version = '1.2.40'
 
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlinx:kotlinx-html-js:0.6.4"
     }
 }
 
@@ -15,11 +16,12 @@ version '1.0-SNAPSHOT'
 apply plugin: 'kotlin2js'
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlinx:kotlinx-html-js:0.6.4"
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
