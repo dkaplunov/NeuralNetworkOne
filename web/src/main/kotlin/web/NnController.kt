@@ -13,6 +13,8 @@ class TestController {
         @GetMapping("/")
         fun getIndex() = "index.html"
 
+        @GetMapping("/template")
+        fun getTemplate(@RequestParam(value = "name", defaultValue = "templates/templ1.html") name: String) = name
 }
 
 @RestController
@@ -23,6 +25,10 @@ class HelloController {
         @GetMapping("/greeting")
         fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String) = Greeting(counter, "Hello, $name")
 
+
+
 }
+
+
 
 data class Greeting(val id: Long, val content: String)
