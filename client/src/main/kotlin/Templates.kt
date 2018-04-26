@@ -11,7 +11,7 @@ object Templates {
             val elm =nl.get(i)
             val name = elm!!.attributes.get("name")!!.value
             XHttp.get(name).then (fun (res:String) {
-                val obj = DOMParser().parseFromString(res, "text/html").documentElement  //.rootElement //!!.firstChild as Node
+                val obj = DOMParser().parseFromString(res, "text/html").activeElement!!.firstChild as Node
                 applayTemplates(obj as Element)
                 elm.replaceWith(obj)
             })
