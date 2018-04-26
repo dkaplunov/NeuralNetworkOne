@@ -2,20 +2,18 @@ import org.w3c.xhr.XMLHttpRequest
 import kotlin.js.Promise
 
 object XHttp {
-    var xhttp :dynamic= XMLHttpRequest();
+    val xhttp :dynamic = XMLHttpRequest()
 
-/*    fun doRequest (method:String, url:String) = Promise (q:String, p:RuntimeException -> {
+    fun doReq (method:String, url:String):XHttp {
         xhttp.open(method, url, true)
+        xhttp.send();
+        return this
+    }
 
-    })
-*/
+    fun get (url:String):XHttp = doReq("GET", url)
+    fun post (url:String):XHttp = doReq("POST", url)
 
-   val qq = {method:String, url:String -> {
-        xhttp.open(method, url, true)
-
-    }}
-
-
-
+    fun then (param:(data:String)->Unit) {xhttp.onloadend = fun () {param(xhttp.responseText)}}
+    fun catch (param:(data:String)->Unit) {xhttp.onError = fun () {param(xhttp.responseText)}}
 }
 
