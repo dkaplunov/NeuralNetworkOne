@@ -13,7 +13,7 @@ object XHttp {
     fun get (url:String):XHttp = doReq("GET", url)
     fun post (url:String):XHttp = doReq("POST", url)
 
-    fun then (param:(data:String)->Unit) {xhttp.onloadend = fun () {param(xhttp.responseText)}}
-    fun catch (param:(data:String)->Unit) {xhttp.onError = fun () {param(xhttp.responseText)}}
+    fun then (param:(data:String)->Unit):XHttp {xhttp.onloadend = fun () {param(xhttp.responseText)}; return this}
+    fun catch (param:(data:String)->Unit):XHttp {xhttp.onError = fun () {param(xhttp.responseText)}; return this}
 }
 

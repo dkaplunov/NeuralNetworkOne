@@ -1,3 +1,7 @@
+import org.w3c.dom.Element
+import org.w3c.dom.Node
+import org.w3c.dom.NodeList
+import org.w3c.dom.get
 import org.w3c.dom.parsing.DOMParser
 import kotlin.browser.document
 import kotlin.browser.window
@@ -5,12 +9,7 @@ import kotlin.browser.window
 fun main(args: Array<String>) {
 
     window.onload = {
-
-        XHttp.get("/template").then (fun (res:String) {
-            val obj = DOMParser().parseFromString(res, "text/html")
-            document.getElementById("TestPlace")!!.append(obj.activeElement!!.firstChild)
-        })
-
+        Templates.applayTemplates(document.documentElement)
     }
 }
 
