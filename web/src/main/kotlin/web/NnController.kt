@@ -1,9 +1,11 @@
 package web
 
+import data.NnParams
+import data.NnValues
+import model.NnOperator
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpSession
 
 @Controller
 class TestController {
@@ -18,17 +20,17 @@ class TestController {
 }
 
 @RestController
-class HelloController {
+class CreateNNManipulationController {
 
-        val counter:Long = 1
+        @PostMapping("/createNet")
+        fun createNet(@RequestBody initData: NnParams, session:HttpSession):NnValues {
+            session.setAttribute("nNentwork", NnOperator (initData))
+            return NnValues(10)
+        }
 
-        @GetMapping("/greeting")
-        fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String) = Greeting(counter, "Hello, $name")
-
-
+    @PostMapping("/executeNet")
+    fun executeNet(@RequestBody initData: NnValues, session:HttpSession):NnValues =
+        (session.getAttribute("nNentwork") as NnOperator).execute(initData)
 
 }
 
-
-
-data class Greeting(val id: Long, val content: String)

@@ -1,4 +1,7 @@
 package model
+import data.EduValue
+import data.NnParams
+import data.NnValues
 import org.junit.Test as test
 import org.junit.Before
 import ru.kda.nn.functions.ErrorFunctionParamImp
@@ -20,8 +23,15 @@ class TestModel {
 
     @test fun executeNNTest () {
        doStuding();
-        assert(nnOperator.getError(ErrorFunctionParamImp(nnOperator.toDoubleArray(NnValues(0)), nnOperator.toDoubleArray(NnValues(0))))<ERR_CNTRL)
-        assert(nnOperator.getError(ErrorFunctionParamImp(nnOperator.toDoubleArray(NnValues(2)), nnOperator.toDoubleArray(NnValues(1))))<ERR_CNTRL)
+       assert(nnOperator.getError(
+               ErrorFunctionParamImp(
+                       nnOperator.toDoubleArray(
+                               nnOperator.execute(NnValues(0))),
+                       nnOperator.toDoubleArray(NnValues(0))))<ERR_CNTRL)
+       assert(nnOperator.getError(
+               ErrorFunctionParamImp(nnOperator.toDoubleArray(
+                                nnOperator.execute(NnValues(2))),
+                       nnOperator.toDoubleArray(NnValues(1))))<ERR_CNTRL)
     }
 
     fun doStuding () {

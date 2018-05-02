@@ -1,4 +1,5 @@
 rootProject.name = 'NeuralNetworkOne_c'
+include 'data'
 include 'client'
 include 'NN_Model'
 include 'web'

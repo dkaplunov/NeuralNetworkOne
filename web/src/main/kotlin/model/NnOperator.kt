@@ -1,5 +1,8 @@
 package model
 
+import data.EduValue
+import data.NnParams
+import data.NnValues
 import ru.kda.nn.base.perceptron.PerceptronNetwork
 import ru.kda.nn.functions.ErrorFunctionParam
 import ru.kda.nn.functions.activate.Sigmoid
@@ -12,7 +15,7 @@ import kotlin.math.roundToLong
 class NnOperator (params: NnParams) {
 
     val nn = PerceptronNetwork(
-            params.levels,
+            params.levels.toIntArray(),
             when (params.activFunName) {
                     "S" -> Sigmoid()
                     else -> Sigmoid()
@@ -72,6 +75,4 @@ class NnOperator (params: NnParams) {
 
 }
 
-data class NnParams (val levels:IntArray, val activFunName:String, val teacher:String, val numEpoche:Int, val errFun:String);
-data class NnValues (val binValue:Int)
-data class EduValue (val binInitValue:Int, val binAnsverValue:Int)
+

@@ -9,7 +9,7 @@ object Templates {
         for (i in 0..nl.length-1) {
             val elm =nl.get(i)
             val name = elm!!.attributes.get("name")!!.value
-            XHttp.get(name).then (fun (res:String) {
+            XHttp().get(name).then (fun (res:String) {
                 val obj = DOMParser().parseFromString(res, "text/html").activeElement!!.firstChild as Node
                 loadTemplates(obj as Element)
                 elm.replaceWith(obj)
@@ -18,9 +18,9 @@ object Templates {
         }
     }
 
+    //TODO Потом как нибудь...
     fun applyTemplate (obj:dynamic) {
         return obj["prop1"]
     }
 
-    data class TestData (val prop1:String, val prop2:Int)
 }
