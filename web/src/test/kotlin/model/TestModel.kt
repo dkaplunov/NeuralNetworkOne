@@ -8,7 +8,7 @@ import ru.kda.nn.functions.ErrorFunctionParamImp
 
 class TestModel {
 
-    var nnOperator:NnOperator = NnOperator(NnParams(intArrayOf(2,4,1),"_", "_", 100000, "_"))
+    var nnOperator:NnOperator = NnOperator(NnParams(arrayOf(2,4,1),"_", "_", 100000, "_"))
     val ERR_CNTRL = 0.02
 
     @Before fun init () {
