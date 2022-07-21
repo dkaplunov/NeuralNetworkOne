@@ -3,27 +3,29 @@ package ru.kda.nn.functions.error;
 import ru.kda.nn.functions.ErrorFunctionParam;
 import ru.kda.nn.functions.FunctionParam;
 
-public class RootMSEParam implements ErrorFunctionParam {
-    private double results [];
-    private double reference [];
+import java.util.List;
 
-    public RootMSEParam(double[] results, double[] reference) {
+public class RootMSEParam implements ErrorFunctionParam {
+    private List<Double> results;
+    private List<Double> reference;
+
+    public RootMSEParam(List<Double> results, List<Double> reference) {
         setParams(results, reference);
     }
 
     @Override
-    public void setParams(double[] results, double[] reference) {
+    public void setParams(List<Double> results, List<Double> reference) {
         this.results = results;
         this.reference = reference;
     }
 
     @Override
-    public double[] getResults() {
+    public List<Double> getResults() {
         return this.results;
     }
 
     @Override
-    public double[] getReference() {
+    public List<Double> getReference() {
         return this.reference;
     }
 }

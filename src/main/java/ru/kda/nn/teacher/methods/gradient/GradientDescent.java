@@ -11,20 +11,22 @@ import java.util.Map;
 
 public class GradientDescent implements TeacherMethod {
 
-    private Map<Neuron, Double> nextLevelDelta; // = new HashMap<>();
+    private Map<Neuron, Double> nextLevelDelta;
     private final double epsilon = 0.7;
     private final double alfa = 0.3;
 
-    private void calcBottomDelta (List<Neuron> neurons, double [] refs) {
-        for (int j = 0; j < refs.length && j<neurons.size(); j++) {
-            Neuron neuron = neurons.get (j);
-            double delta = (refs [j] - neuron.getValue())*neuron.getDerivativeValue();  //(1-neuron.getDerivativeValue())*neuron.getDerivativeValue();
-            calcAndSetSinapseDeltas(delta, neuron.getSynapses());
-
-        }
+    private void calcBottomDelta (List<Neuron> neurons, List<Double> refs) {
+        var neuronIterator = neurons.iterator();
+        refs.forEach(ref->{
+            if(neuronIterator.hasNext()) {
+                Neuron neuron = neuronIterator.next();
+                double delta = (ref - neuron.getValue())*neuron.getDerivativeValue();
+                calcAndSetSinapseDeltas(delta, neuron.getSynapses());
+            }
+        });
     }
 
-    private void calcAndSetSinapseDeltas(double delta, List<Synapse> synapses) {
+    private void calcAndSetSinapseDeltas(Double delta, List<Synapse> synapses) {
         synapses.forEach(synapse -> {
             //Calculate deltas for next level
             Neuron neuron = synapse.getParentNeuron();
@@ -33,7 +35,7 @@ public class GradientDescent implements TeacherMethod {
             value = value != null ? value+coef : coef;
             nextLevelDelta.put(synapse.getParentNeuron(), value);
 
-            //change weigth for sinapses for one Neuron
+            //change weight for synapses for one Neuron
             double gradient = delta*synapse.getParentNeuron().getValue();
             double deltaW = epsilon*gradient+alfa*synapse.getHistoryDalta();
             synapse.setHistoryDalta(deltaW);
@@ -51,7 +53,7 @@ public class GradientDescent implements TeacherMethod {
     }
 
     @Override
-    public void train(NeuralNetwork neuralNetwork, double[] reference) {
+    public void train(NeuralNetwork neuralNetwork, List<Double> reference) {
         int numLevels = neuralNetwork.getNumberLevels();
         nextLevelDelta = new HashMap<>();
         calcBottomDelta(neuralNetwork.getLevel(numLevels-1), reference);

@@ -8,9 +8,11 @@ import ru.kda.nn.functions.Executable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PerceptronNetwork implements NeuralNetwork {
-    private List <Levels> levels = new ArrayList<>();
+    private final List <Levels> levels = new ArrayList<>();
 
     public PerceptronNetwork(int [] levelsSizes, Executable func) {
         Levels prevLevel = new Levels();
@@ -22,14 +24,15 @@ public class PerceptronNetwork implements NeuralNetwork {
             prevLevel = level;
             this.levels.add(level);
         }
+
     }
 
     @Override
-    public double [] executeNetwork (double [] values) {
-        Levels prevLevel = levels.get(0);
-        prevLevel.initLevel(values);
-        for (int i=1; i<levels.size(); i++) {
-            levels.get(i).calcLevel();
+    public List<Double> executeNetwork (List<Double> values) {
+        var levelsIterator = levels.iterator();
+        levelsIterator.next().initLevel(values);
+        while(levelsIterator.hasNext()) {
+            levelsIterator.next().calcLevel();
         }
         return levels.get(levels.size()-1).getLevelValues();
     }

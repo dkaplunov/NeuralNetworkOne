@@ -2,7 +2,7 @@ package ru.kda.nn.base;
 
 public class Synapse {
     private double coef = Math.random();
-    private Neuron parentNeuron;
+    private final Neuron parentNeuron;
     private double historyDalta = 0;
 
     public Synapse(Neuron parentNeuron) {

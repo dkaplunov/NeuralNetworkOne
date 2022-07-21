@@ -1,19 +1,21 @@
 package ru.kda.nn.teacher;
 
-public class TranerSet {
-    private double initValues[];
-    private double reference [];
+import java.util.List;
 
-    public TranerSet(double[] initValues, double[] reference) {
+public class TranerSet {
+    private final List<Double> initValues;
+    private final List<Double> reference;
+
+    public TranerSet(List<Double> initValues, List<Double> reference) {
         this.initValues = initValues;
         this.reference = reference;
     }
 
-    public double[] getInitValues() {
+    public List<Double> getInitValues() {
         return initValues;
     }
 
-    public double[] getReference() {
+    public List<Double> getReference() {
         return reference;
     }
 }

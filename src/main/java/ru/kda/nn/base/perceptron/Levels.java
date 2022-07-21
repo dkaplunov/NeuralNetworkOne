@@ -4,9 +4,11 @@ import ru.kda.nn.base.Neuron;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Levels {
-    private List<Neuron> neurons = new ArrayList<>();
+    private final List<Neuron> neurons = new ArrayList<>();
 
     public void addNeuron (Neuron neuron) {
         neurons.add(neuron);
@@ -16,22 +18,21 @@ public class Levels {
         return neurons;
     }
 
-    public void initLevel (double [] values) {
-        for (int i = 0; i<values.length && i<neurons.size(); i++) {
-            neurons.get(i).setValue (values[i]);
-        }
+    public void initLevel (List<Double> values) {
+        final var neuronIterator = neurons.iterator();
+        values.forEach(v->{
+           if(neuronIterator.hasNext()) {
+               neuronIterator.next().setValue(v);
+           }
+        });
     }
 
     public void calcLevel () {
-        neurons.forEach(item -> item.calculateValue());
+        neurons.forEach(Neuron::calculateValue);
     }
 
-    public double [] getLevelValues () {
-        double [] res = new double[neurons.size()];
-        for (int i = 0; i<res.length; i++) {
-            res[i] = neurons.get(i).getValue();
-        }
-        return res;
+    public List<Double> getLevelValues () {
+        return neurons.stream().map(Neuron::getValue).collect(Collectors.toList());
     }
 
 }

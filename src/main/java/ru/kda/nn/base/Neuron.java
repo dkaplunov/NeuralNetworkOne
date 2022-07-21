@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Neuron {
     private double value;
-    private Executable func;
-    private List <Synapse> synapses = new ArrayList<>();
+    private final Executable func;
+    private final List <Synapse> synapses = new ArrayList<>();
 
 
     public Neuron(Executable func, List<Neuron> prevLevelNeurons) {

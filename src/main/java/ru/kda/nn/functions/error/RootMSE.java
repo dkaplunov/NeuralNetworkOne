@@ -4,16 +4,25 @@ import ru.kda.nn.functions.ErrorFunctionParam;
 import ru.kda.nn.functions.Executable;
 import ru.kda.nn.functions.FunctionParam;
 
+import java.util.List;
+import java.util.stream.DoubleStream;
+
 public class RootMSE implements Executable {
     @Override
     public double execute(FunctionParam param) {
-        double results [] = ((ErrorFunctionParam)param).getResults();
-        double refs [] = ((ErrorFunctionParam)param).getReference();
-        double errorValue = 0;
-        for (int i=0; i<results.length && i<refs.length; i++) {
-            errorValue += (refs[i]-results[i])*(refs[i]-results[i]);
-        }
-        return Math.sqrt(errorValue/refs.length);
+        List<Double> results = ((ErrorFunctionParam)param).getResults();
+        List<Double> refs = ((ErrorFunctionParam)param).getReference();
+        var refsIterator = refs.iterator();
+
+        double errorValue = results.stream().flatMapToDouble(result-> {
+            if(refsIterator.hasNext()) {
+                var ref = refsIterator.next();
+                return DoubleStream.of((ref-result)*(ref-result));
+            }
+            return DoubleStream.of(0.);
+        }).sum();
+
+        return Math.sqrt(errorValue/refs.size());
     }
 
     @Override

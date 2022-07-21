@@ -1,8 +1,10 @@
 package ru.kda.nn.functions;
 
+import java.util.List;
+
 public interface ErrorFunctionParam extends FunctionParam {
-    public void setParams(double[] results, double[] reference);
-    public double[] getResults();
-    public double[] getReference();
+    void setParams(List<Double> results, List<Double> reference);
+    List<Double> getResults();
+    List<Double> getReference();
 
 }

@@ -2,6 +2,8 @@ package ru.kda.nn.teacher.methods;
 
 import ru.kda.nn.base.NeuralNetwork;
 
+import java.util.List;
+
 public interface TeacherMethod {
-    public void train (NeuralNetwork neuralNetwork, double [] reference);
+    void train (NeuralNetwork neuralNetwork, List<Double> reference);
 }

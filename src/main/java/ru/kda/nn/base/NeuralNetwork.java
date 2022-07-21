@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface NeuralNetwork {
 
-    public double [] executeNetwork (double [] values);
-    public List<Neuron> getLevel (int numLevel);
-    public int getNumberLevels ();
+    List<Double> executeNetwork (List<Double> values);
+    List<Neuron> getLevel (int numLevel);
+    int getNumberLevels ();
 
-    public String getJSON ();
+    String getJSON ();
 
 }

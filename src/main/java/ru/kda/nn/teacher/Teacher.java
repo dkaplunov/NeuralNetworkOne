@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher {
-    private List <TranerSet> tranerSets = new ArrayList<>();
-    private NeuralNetwork neuralNetwork;
-    private int epocheCount;
-    private Executable errorFunction;
-    private TeacherMethod teacherMethod;
+    private final List <TranerSet> tranerSets = new ArrayList<>();
+    private final NeuralNetwork neuralNetwork;
+    private final int epocheCount;
+    private final Executable errorFunction;
+    private final TeacherMethod teacherMethod;
 
     public Teacher(NeuralNetwork neuralNetwork, TeacherMethod teacherMethod, int epocheCount, Executable errorFunction) {
         this.neuralNetwork = neuralNetwork;
@@ -26,7 +26,6 @@ public class Teacher {
     }
 
     public void teach () {
-        int a = 1;
         for (int i = 0; i < epocheCount; i++) {
             tranerSets.forEach(set -> {
                 neuralNetwork.executeNetwork(set.getInitValues());
